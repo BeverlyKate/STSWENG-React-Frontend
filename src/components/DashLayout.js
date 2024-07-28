@@ -1,16 +1,19 @@
 import { Outlet } from 'react-router-dom'
-import DashHeader from './DashHeader'
+// import DashHeader from './DashHeader'
 import DashFooter from './DashFooter'
-
+import { Header } from './header';
+import { Navbar } from './Navbar';
 const DashLayout = () => {
+    console.log('DashLayout component rendered');
     return (
         <>
-            <DashHeader />
+            <Header />
             <div className="dash-container">
+                <Navbar />
                 <Outlet />
             </div>
-            <DashFooter />
+            {/* <DashFooter /> */}
         </>
-    )
-}
-export default DashLayout
+    );
+};
+export default DashLayout;
