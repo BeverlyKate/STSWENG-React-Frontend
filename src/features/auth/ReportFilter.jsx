@@ -11,7 +11,7 @@ export function ReportFilter({ toggleOverlay, reportName, id }){
     const [repairStatus, setRepairStatus] = useState("")
     const [itemCategory, setItemCategory] = useState("default")
     const [modelCategory, setModelCategory] = useState("default")
-    const [formData, setFormData] = useState([{overlay: id, date: "", status: "", item: "", model: ""}])
+    const [formData, setFormData] = useState({overlay: id, date: "", status: "", item: ""})
     const navigate = useNavigate()
 
     function getDate(date) {
@@ -45,6 +45,8 @@ export function ReportFilter({ toggleOverlay, reportName, id }){
             if(repairStatus==="") return console.log("please select status")
 
             formData.status = repairStatus
+
+            
         }
 
         if(itemCategory != "default" && modelCategory != "default") return console.log("Select 1 category only")
@@ -52,11 +54,14 @@ export function ReportFilter({ toggleOverlay, reportName, id }){
         formData.item = itemCategory
         formData.model = modelCategory
 
-        // apiClient
-        // .post(`/${formData.overlay}post`)
-
         console.log(formData)
 
+        // apiClient
+        // .post(`/${formData.overlay}post`, formData)
+        // .then(navigate("/report"))
+        // .catch((error)=>{
+        //     console.error("Can't generate data!", error);
+        // })
     }
 
     return(
