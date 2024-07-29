@@ -8,6 +8,7 @@ import Home from "./features/auth/Home";
 import NotesList from "./features/notes/NotesList";
 import UsersList from "./features/users/UsersList";
 import TasksList from "./features/Table/TableList";
+import Report from "./features/auth/Report"
 
 function App() {
   console.log("App component rendered");
@@ -20,6 +21,10 @@ function App() {
         <Route path="dash" element={<DashLayout />}>
           {/* <Route index element={<Welcome />} /> */}
           <Route index element={<Home />} />
+
+          <Route path="report">
+            <Route index element={<Report />} />
+          </Route>
 
           <Route path="notes">
             <Route index element={<NotesList />} />

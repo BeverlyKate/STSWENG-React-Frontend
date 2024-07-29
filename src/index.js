@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client';
 import './global.css';
 import './table.css';
 import './home.css';
+import './Report.css';
 import App from './App';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
