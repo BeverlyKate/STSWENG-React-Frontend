@@ -5,18 +5,19 @@ import Modal from "./Modal"
 
 export default function Home({ setReportData }) {
     var reportSelection =[
-        {id: 1, reportName: 'Item Quantity Per Model'}, 
-        {id: 2, reportName: 'Top Defects Per Model'}, 
-        {id: 3, reportName: 'Pending Tasks Per Model'}
+        {id: 'IQPM', reportName: 'Item Quantity Per Model'}, 
+        {id: 'TDPM', reportName: 'Top Defects Per Model'}, 
+        {id: 'PTPM', reportName: 'Pending Tasks Per Model'}
     ]
 
     const [openOverlay, setOpenOverlay] = useState(false)
 
-    const [currentOverlay, setCurrentOverlay] = useState("")
+    const [currentOverlay, setCurrentOverlay] = useState({id: "", reportName: ""})
 
-    function toggleOverlay(report) {
+    function toggleOverlay(report, Id) {
         setOpenOverlay(!openOverlay)
-        setCurrentOverlay(report)
+        currentOverlay.id = Id
+        currentOverlay.reportName = report
     }
 
     return (
@@ -28,7 +29,7 @@ export default function Home({ setReportData }) {
         {/* {openOverlay && (<FilterOverlay toggleOverlay={toggleOverlay} />)} */}
 
         <Modal openOverlay={openOverlay} toggleOverlay={toggleOverlay} >
-            <ReportFilter toggleOverlay={toggleOverlay} currentOverlay={currentOverlay} />
+            <ReportFilter toggleOverlay={toggleOverlay} {...currentOverlay} />
         </Modal>
     </>
     )

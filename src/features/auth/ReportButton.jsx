@@ -1,12 +1,12 @@
 
-export function ReportButton({ report, toggleOverlay }) {
+export function ReportButton({ reportName, id, toggleOverlay }) {
     return (
         <div className="btn-report-holder" data-report="IQPM">
             <button 
-                onClick={() => toggleOverlay(report)}
+                onClick={() => toggleOverlay(reportName, id)}
                 className="report-name"
             >
-                {report}
+                {reportName}
             </button>
         </div>
     )

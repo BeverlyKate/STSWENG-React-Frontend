@@ -1,4 +1,4 @@
-export function ModelCategory() {
+export function ModelCategory({ setModel }) {
     var modelSelection =[
         {value: "default", label: "(Item)"},
         {value: "FRAME EZ-112A", label: "FRAME EZ-112A"}, 
@@ -42,7 +42,7 @@ export function ModelCategory() {
         {value: "XLR (M)", label: "XLR (M)"}
     ]
     return (
-        <select class="btn-dropdown-mock dropdown-selection" name="itemModel">
+        <select class="btn-dropdown-mock dropdown-selection" name="itemModel" onChange={e => setModel(e.target.value)}>
             {modelSelection.map(model => {
                 return (<option value={model.value}>{model.label}</option>)
             })}

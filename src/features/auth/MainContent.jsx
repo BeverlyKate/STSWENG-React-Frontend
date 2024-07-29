@@ -5,7 +5,7 @@ export function MainContent({ reportSelection, toggleOverlay }) {
         <div className="mainContent">
             <div className="reports-menu">
                 {reportSelection.map(report => {
-                    return <ReportButton report={report.reportName} key={report.id} toggleOverlay ={toggleOverlay}/>
+                    return <ReportButton {...report} key={report.id} toggleOverlay ={toggleOverlay}/>
                 })}
             </div>
         </div>

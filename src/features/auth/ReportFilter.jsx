@@ -4,13 +4,14 @@ import { DateSelect } from "./DateSelect"
 import { FormIQPM } from "./FormIQPM"
 import { FormTDAndPTPM } from "./FormTDAndPTPM"
 import { useNavigate } from "react-router-dom"
+import apiClient from "../../app/api/apiClient"
 
-export function ReportFilter({ toggleOverlay, currentOverlay }){
+export function ReportFilter({ toggleOverlay, reportName, id }){
     const [dateRange, setDateRange] = useState("")
     const [repairStatus, setRepairStatus] = useState("")
-    const [itemCategory, setItemCategory] = useState("")
-    const [modelCategory, setModelCategory] = useState("")
-    const [formData, setFormData] = useState([{overlay: currentOverlay}, {date: ""}, {item: ""}, {model: ""}, {status: ""}])
+    const [itemCategory, setItemCategory] = useState("default")
+    const [modelCategory, setModelCategory] = useState("default")
+    const [formData, setFormData] = useState([{overlay: id, date: "", status: "", item: "", model: ""}])
     const navigate = useNavigate()
 
     function getDate(date) {
@@ -36,31 +37,25 @@ export function ReportFilter({ toggleOverlay, currentOverlay }){
 
         if(dateRange === "") return console.log("invalid date")
         
+        formData.date = dateRange
+        
         //console.log(dateRange)
 
-        if(currentOverlay === "Top Defects Per Model" || currentOverlay === "Pending Tasks Per Model"){
+        if(id == "TDPM" || id == "PTPM"){
             if(repairStatus==="") return console.log("please select status")
+
+            formData.status = repairStatus
         }
 
-        formData.date = dateRange
+        if(itemCategory != "default" && modelCategory != "default") return console.log("Select 1 category only")
 
         formData.item = itemCategory
-
         formData.model = modelCategory
 
-        formData.status = repairStatus
+        // apiClient
+        // .post(`/${formData.overlay}post`)
 
         console.log(formData)
-
-        formData.date = ""
-
-        formData.item = ""
-
-        formData.model = ""
-
-        formData.status = ""
-
-        navigate("/dash/report")
 
     }
 
@@ -77,7 +72,7 @@ export function ReportFilter({ toggleOverlay, currentOverlay }){
                 <form className ="hello" onSubmit={generateReport}>
                     <div className="popup-body">
                         <div className="popup-header">
-                            <div className="popup-text">{currentOverlay}</div>
+                            <div className="popup-text">{reportName}</div>
                             <button className="btn-close" onClick={() => toggleOverlay("")}><img src={closeIcon} alt="close popup"/></button>
                         </div>
                         <div className="popup-subheader">
@@ -87,7 +82,7 @@ export function ReportFilter({ toggleOverlay, currentOverlay }){
                         </div>
                         <DateSelect getDate={getDate}/>
                         <div className="report-specifics-holder">
-                            {currentOverlay === "Item Quantity Per Model" && (<FormIQPM getItemCategory={getItemCategory}/>) 
+                            {reportName === "Item Quantity Per Model" && (<FormIQPM getItemCategory={getItemCategory}/>) 
                             || (<FormTDAndPTPM getRepairStatus={getRepairStatus} 
                                                 getItemCategory={getItemCategory} 
                                                 getModelCategory={getModelCategory}/>)}
