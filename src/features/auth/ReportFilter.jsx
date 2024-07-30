@@ -46,22 +46,26 @@ export function ReportFilter({ toggleOverlay, reportName, id }){
 
             formData.status = repairStatus
 
-            
+            formData.model = modelCategory
         }
 
         if(itemCategory != "default" && modelCategory != "default") return console.log("Select 1 category only")
 
         formData.item = itemCategory
-        formData.model = modelCategory
 
         console.log(formData)
 
-        // apiClient
-        // .post(`/${formData.overlay}post`, formData)
-        // .then(navigate("/report"))
-        // .catch((error)=>{
-        //     console.error("Can't generate data!", error);
-        // })
+        apiClient
+        .post(`/${formData.overlay}post`, formData)
+        .then(
+            
+            navigate("/dash/report", {state: formData})
+        )
+        .catch((error)=>{
+            console.error("Can't generate data!", error);
+        })
+
+        
     }
 
     return(
