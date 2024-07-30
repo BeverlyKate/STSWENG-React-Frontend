@@ -51,6 +51,18 @@ const EditTaskForm = ({ task, handleClose }) => {
       });
   };
 
+  const handleDelete = () => {
+    apiClient
+      .delete(`/api/tasks/delete/${formData.repairId}`)
+      .then((response) => {
+        console.log("Deleted Task:", response.data);
+        handleClose();
+      })
+      .catch((error) => {
+        console.error("There was an error deleting the task!", error);
+      });
+  };
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
@@ -385,6 +397,9 @@ const EditTaskForm = ({ task, handleClose }) => {
         </select>
       </div>
       <button type="submit">Save</button>
+      <button type="button" onClick={handleDelete}>
+        Delete
+      </button>
     </form>
   );
 };
